@@ -1,0 +1,35 @@
+
+<html>
+  <head>
+    <title>Test Drop-in</title>
+  </head>
+  <body ng-app="dropinApp">
+
+    <form ng-controller="checkout">
+      <braintree-dropin></braintree-dropin>
+
+      <input
+        type="submit"
+        value="Pay $14"
+        />
+    </form>
+
+    <script src="angular.js"></script>
+    <script src="braintree-angular.js"></script>
+    <script>
+      angular.module('dropinApp', ['braintree-angular'])
+        .constant('clientTokenPath', '/client-token');
+        .controller('checkout', function($scope) {
+
+          $scope.dropinOptions = {
+            paymentMethodNonceReceived: function(e, nonce) {
+              e.preventDefault();
+              console.log('NONCE', nonce); // yay
+            }
+          };
+
+        });
+    </script>
+
+  </body>
+</html>
