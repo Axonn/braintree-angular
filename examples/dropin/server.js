@@ -20,6 +20,11 @@ app.use(bodyParser.urlencoded({
 
 app.get('/client-token', function(req, res) {
   gateway.clientToken.generate({}, function (err, response) {
+    if (err) {
+      console.error(err);
+      res.send(err);
+      return;
+    }
     var clientToken = response.clientToken
     res.send(clientToken);
   });

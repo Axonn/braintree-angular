@@ -8,9 +8,9 @@
 
       <form ng-controller="checkout">
         <h1>Buy some things</h1>
-        <braintree-dropin
+        <braintree-paypal
           options="dropinOptions"
-          >Loading payment form...</braintree-dropin>
+          >Loading payment form...</braintree-paypal>
 
         <input
           type="submit"
@@ -29,10 +29,9 @@
            .controller('checkout', function($scope) {
 
              $scope.dropinOptions = {
-               paymentMethodNonceReceived: function(e, nonce) {
-                 e.preventDefault();
-                 console.log(nonce); // yay
-               }
+               onPaymentMethodReceived: function(payload) {
+                 console.log(payload); // yay
+               },
              };
 
            });
